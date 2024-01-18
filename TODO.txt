@@ -1,0 +1,6 @@
+Make algorithm support multi level operations
+Create top level validation checks
+Add my escape algorithm to top level bracket parser.
+Add global not to operations.
+Create GUI + tabs + history + caching results for quicker searches
+Create gui notifcations for invalid input and remove error throws
