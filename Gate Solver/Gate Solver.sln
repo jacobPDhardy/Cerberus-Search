@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gate Solver", "Gate Solver\Gate Solver.csproj", "{2C4C9DEE-952F-40FD-87A8-F0EE302B8819}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C4C9DEE-952F-40FD-87A8-F0EE302B8819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C4C9DEE-952F-40FD-87A8-F0EE302B8819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C4C9DEE-952F-40FD-87A8-F0EE302B8819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C4C9DEE-952F-40FD-87A8-F0EE302B8819}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B68B8EA5-2E2D-4E9B-A791-CCC1129D4B73}
+	EndGlobalSection
+EndGlobal
