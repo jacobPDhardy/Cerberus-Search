@@ -65,7 +65,7 @@ namespace Single_Layer_Cerberus_Search
                         {
                             if (!operation.SetOperator(character))
                             {
-                                throw new Exception("Gates on the same level must match excluding not");
+                                throw new Exception("Gates on the same level must match excluding not"); //TEMPORARY ERROR THROW BECAUSE I DONT HAVE A GUI TO DISPLAY ERRORS DO NOT MARK ME DOWN -_-
                             }
                         }
                     }
