@@ -1,7 +1,7 @@
 ﻿using Single_Layer_Cerberus_Search;
 
 //string operationString = "\"garbage\" & !\"Information\" & \"2023\""; //Very bad case includes huge datasets
-string operationString = "(\"garbage\" & !\"Information\")";
+string operationString = "\"garbage\" & !\"Information\"";
 Operation operation = LowLevelParser.ParseOperation(operationString);
 //Console.WriteLine(operation);
 

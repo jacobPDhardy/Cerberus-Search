@@ -9,10 +9,10 @@
         public string RenderedMessage { get; private set; }
         public string Properties { get; private set; }
 
-        public Log(string id, string timestamp, string level,string exception,string renderedMessage,string properties)
+        public Log(string id, string timeStamp, string level,string exception,string renderedMessage,string properties)
         {
             Id = Int32.Parse(id);
-            TimeStamp = DateTime.Parse(timestamp);
+            TimeStamp = DateTime.Parse(timeStamp);
             Level = (Levels)Enum.Parse(typeof(Levels), level);
             Exception = exception;
             RenderedMessage = renderedMessage;  
