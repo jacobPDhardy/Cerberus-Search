@@ -96,6 +96,17 @@ namespace Cerberus_Search_Complete
             List<string> searchFragments = new List<string>();
             int bracketCount = 0;
 
+            if (search.Length > 2 && search.StartsWith("!\""))
+            {
+                searchFragments.Add(search);
+                return searchFragments;
+            }
+            else if (search.Length > 1 && search.StartsWith("\""))
+            {
+                searchFragments.Add(search);
+                return searchFragments;
+            }
+
             string unwrappedStatement = Unwrap(search);
             foreach (var character in unwrappedStatement)
             {
