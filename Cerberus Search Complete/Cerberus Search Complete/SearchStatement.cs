@@ -17,7 +17,7 @@ namespace Cerberus_Search_Complete
         {
             _search = search;
             Map(_search);
-            Console.WriteLine($"Mapping statement:\n{this}");
+            //Console.WriteLine($"Mapping statement:\n{this}");
         }
 
         private char @operator;
@@ -96,55 +96,47 @@ namespace Cerberus_Search_Complete
             List<string> searchFragments = new List<string>();
             int bracketCount = 0;
 
-            if (string.IsNullOrEmpty(search))
-            {
-                return searchFragments;
-            }
-            else if (search.Length > 1 && search.StartsWith("\""))
+            if ((string.IsNullOrEmpty(search)) || (search.Length > 1 && search.StartsWith("\"")) || (search.Length > 2 && search.StartsWith("!\"")))
             {
                 searchFragments.Add(search);
-                return searchFragments;
             }
-            else if (search.Length > 2 && search.StartsWith("!\""))
+            else
             {
-                searchFragments.Add(search);
-                return searchFragments;
-            }
-
-            string unwrappedStatement = Unwrap(search);
-            foreach (var character in unwrappedStatement)
-            {
-                if (!escapeSequence)
+                string unwrappedStatement = Unwrap(search);
+                foreach (var character in unwrappedStatement)
                 {
-                    if (character != backslash)
+                    if (!escapeSequence)
                     {
-                        searchFragment += character;
-                        if (character == '(')
+                        if (character != backslash)
                         {
-                            bracketCount++;
-                        }
-                        else if (character == ')')
-                        {
-                            bracketCount--;
-                        }
-                        if (bracketCount == 0)
-                        {
-                            if (!string.IsNullOrWhiteSpace(searchFragment))
+                            searchFragment += character;
+                            if (character == '(')
                             {
-                                searchFragments.Add(searchFragment);
+                                bracketCount++;
                             }
-                            searchFragment = "";
+                            else if (character == ')')
+                            {
+                                bracketCount--;
+                            }
+                            if (bracketCount == 0)
+                            {
+                                if (!string.IsNullOrWhiteSpace(searchFragment))
+                                {
+                                    searchFragments.Add(searchFragment);
+                                }
+                                searchFragment = "";
+                            }
+                        }
+                        else
+                        {
+                            escapeSequence = true;
                         }
                     }
                     else
                     {
-                        escapeSequence = true;
+                        searchFragment += character;
+                        escapeSequence = false;
                     }
-                }
-                else
-                {
-                    searchFragment += character;
-                    escapeSequence = false;
                 }
             }
             return searchFragments;
@@ -166,13 +158,13 @@ namespace Cerberus_Search_Complete
             }
         }
 
-        public async Task Solve()
+        public async Task<List<Log>> Solve()
         {
             if (isRoot)
             {
                 Operation operation = LowLevelParser.ParseOperation(_search);
                 ResultDataset = await operation.Solve();
-                Console.WriteLine($"Solved statement:\n{this}\n");
+                //Console.WriteLine($"Solved statement:\n{this}\n");
             }
             else
             {
@@ -183,8 +175,9 @@ namespace Cerberus_Search_Complete
                     childDatasets.Add(childStatement.ResultDataset);
                 }
                 ResultDataset = await GateSolver.AutoSolve(childDatasets, @operator, not) ;
-                Console.WriteLine($"Solved statement:\n{this}\n");
+                //Console.WriteLine($"Solved statement:\n{this}\n");
             }
+            return ResultDataset;
         }
 
         public override string ToString()
