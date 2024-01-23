@@ -15,7 +15,11 @@
             }
             else if (@operator == Gates.XOR)
             {
-                result = XOR(datasets); 
+                result = XOR(datasets);
+            }
+            else if(@operator == '\0')
+            {
+                return datasets.First();
             }
 
             if (not)

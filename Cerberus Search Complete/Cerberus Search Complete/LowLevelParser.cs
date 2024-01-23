@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,52 +25,53 @@ namespace Cerberus_Search_Complete
             {
                 operation.AddSearch(new Search(""));
             }
-
-            foreach (var character in search)
+            else
             {
-                if (character == speechmark && !escapeSequence)
+                foreach (var character in search)
                 {
-                    searchSequence = !searchSequence;
-                    if (!string.IsNullOrEmpty(searchString))
+                    if (character == speechmark && !escapeSequence)
                     {
-                        operation.AddSearch(new Search(searchString, not));
-                        searchString = "";
-                        not = false;
-                    }
-                }
-                else if (searchSequence)
-                {
-                    if (character == backslash && !escapeSequence)
-                    {
-                        escapeSequence = true;
-                    }
-                    else if (escapeSequence)
-                    {
-                        searchString += character;
-                        escapeSequence = false;
-                    }
-                    else
-                    {
-                        searchString += character;
-                    }
-                }
-                else if (!searchSequence)
-                {
-                    if (Gates.IsGate(character))
-                    {
-                        if (character == Gates.NOT)
+                        searchSequence = !searchSequence;
+                        if (!string.IsNullOrEmpty(searchString))
                         {
-                            not = true;
+                            operation.AddSearch(new Search(searchString, not));
+                            searchString = "";
+                            not = false;
+                        }
+                    }
+                    else if (searchSequence)
+                    {
+                        if (character == backslash && !escapeSequence)
+                        {
+                            escapeSequence = true;
+                        }
+                        else if (escapeSequence)
+                        {
+                            searchString += character;
+                            escapeSequence = false;
                         }
                         else
                         {
-                            if (!operation.SetOperator(character))
+                            searchString += character;
+                        }
+                    }
+                    else if (!searchSequence)
+                    {
+                        if (Gates.IsGate(character))
+                        {
+                            if (character == Gates.NOT)
                             {
-                                throw new Exception("Gates on the same level must match excluding not"); //TEMPORARY ERROR THROW BECAUSE I DONT HAVE A GUI TO DISPLAY ERRORS DO NOT MARK ME DOWN -_-
+                                not = true;
+                            }
+                            else
+                            {
+                                if (!operation.SetOperator(character))
+                                {
+                                    throw new FormatException("GUI ERROR PLACEHOLDER - Gates on the same level must match excluding not");
+                                }
                             }
                         }
                     }
-
                 }
             }
             return operation;
