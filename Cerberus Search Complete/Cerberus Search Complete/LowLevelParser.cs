@@ -21,7 +21,7 @@ namespace Cerberus_Search_Complete
 
             Operation operation = new Operation();
 
-            if (string.IsNullOrEmpty(search))
+            if (string.IsNullOrEmpty(search) || search == "(\"\")")
             {
                 operation.AddSearch(new Search(""));
             }
