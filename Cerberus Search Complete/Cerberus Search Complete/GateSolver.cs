@@ -32,12 +32,12 @@
 
         public static List<Log> OR(List<List<Log>> datasets)
         {
-            return new List<Log>(AddDatasets(datasets));
+            return new List<Log>(SortAscending(AddDatasets(datasets)));
         }
 
         public static List<Log> AND(List<List<Log>> datasets)
         {
-            return new List<Log>(FindMatches(datasets));
+            return new List<Log>(SortAscending(FindMatches(datasets)));
         }
 
         public static List<Log> XOR(List<List<Log>> datasets)
@@ -83,7 +83,7 @@
         
         public static List<Log> NOT(List<Log> globalDataset,List<Log> dataset)
         {
-            return SubtractDatasets(globalDataset, new List<List<Log>>() { dataset });
+            return SortAscending(SubtractDatasets(globalDataset, new List<List<Log>>() { dataset }));
         }
 
 
@@ -97,7 +97,7 @@
                     result.Add(data);  
                 }
             }
-            return SortAscending(RemoveDuplicates(result));
+            return RemoveDuplicates(result);
         }
 
         private static List<Log> SubtractDatasets(List<Log> subjectDataset,List<List<Log>> negativeDatasets)
@@ -136,7 +136,7 @@
                     return FilterMatches(matches);
                 }
             }
-            return SortAscending(RemoveDuplicates(FilterMatches(datasets)[0]));
+            return RemoveDuplicates(FilterMatches(datasets).First());
         }
 
         private static List<Log> SortAscending(List<Log> dataset)

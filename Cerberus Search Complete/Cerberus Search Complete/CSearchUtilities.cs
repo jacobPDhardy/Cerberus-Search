@@ -37,17 +37,19 @@ namespace Cerberus_Search_Complete
             return timespan;
         }
 
-        public static async Task BenchmarkAverage(string benchmarkSearch = "(\"mcr\" ^ \"garbage\" ^ \"information\" ^ \"identity\" ^ \"2024\")", int iterations = 10)
+        public static async Task<double> BenchmarkAverage(string benchmarkSearch = "(\"mcr\" ^ \"garbage\" ^ \"information\" ^ \"identity\" ^ \"2024\")", int iterations = 5)
         {
             List<TimeSpan> times = new List<TimeSpan>();
             for (int count = 0;count < iterations;count++)
             {
-                Console.WriteLine($"Running test {count} out of {iterations}");
+                Console.WriteLine($"Running benchmark {count} out of {iterations}");
                 times.Add(await Benchmark(benchmarkSearch));
+                Console.WriteLine();
             }
             var total = times.Sum(time => time.TotalMicroseconds);
             var average = total / iterations;
-            Console.WriteLine($"{iterations} tests ran in {total.ToString(@"m\:ss\.fff")} with an average test time of {average.ToString(@"m\:ss\.fff")}");
+            Console.WriteLine($"{iterations} benchmarks ran in {total.ToString(@"m\:ss\.fff")} with an average benchmark time of {average.ToString(@"m\:ss\.fff")}");
+            return average;
         }
     }
 }

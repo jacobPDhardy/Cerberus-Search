@@ -69,10 +69,6 @@ namespace Cerberus_Search_Complete
             {
                 return search.Substring(1, search.Length - 2);
             }
-            else if (search.StartsWith("!(") && search.EndsWith(")"))
-            {
-                return search.Substring(2, search.Length - 3);
-            }
             else
             {
                 return search;

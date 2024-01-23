@@ -12,8 +12,7 @@ namespace Cerberus_Search_Complete
 
         public List<Log> ResultDataset { get; private set; } = new List<Log>();
         public bool Root { get; private set; }
-        public bool Not { get; private set; }
-        public char Operator { get; private set; }
+        public char TopLevelOperator { get; private set; }
 
         private readonly string _search;
         public SearchStatement(string search)
@@ -29,8 +28,7 @@ namespace Cerberus_Search_Complete
             if (!IsRoot(searchFragments))
             {
                 Root = false;
-                Not = IsNot(search);
-                Operator = FindOperator(searchFragments);
+                TopLevelOperator = FindOperator(searchFragments);
                 foreach (string fragment in searchFragments)
                 {
                     if (!char.TryParse(fragment, out char _))
@@ -42,26 +40,13 @@ namespace Cerberus_Search_Complete
             else
             {
                 Root = true;
-                Not = false;
-                Operator = '\0';
+                TopLevelOperator = '\0';
             }  
         }
 
         public bool IsRoot(List<string> statements)
         {
             if (statements.Count <= 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool IsNot(string search)
-        {
-            if (search.Length >= 3 && (search.StartsWith("!(\"") || search.StartsWith("!((")))
             {
                 return true;
             }
@@ -105,7 +90,7 @@ namespace Cerberus_Search_Complete
                     await childStatement.Solve();
                     childDatasets.Add(childStatement.ResultDataset);
                 }
-                ResultDataset = await GateSolver.AutoSolve(childDatasets, Operator, Not) ;
+                ResultDataset = await GateSolver.AutoSolve(childDatasets, TopLevelOperator) ;
                 //Console.WriteLine($"Solved statement:\n{this}\n");
             }
             return ResultDataset;
@@ -116,7 +101,7 @@ namespace Cerberus_Search_Complete
             string searchStatementString = $"{_search}\nIsRoot: {Root}\n";
             if (!Root)
             {
-                searchStatementString += $"Operator: {Operator}\nNot Status: {Not}\n";
+                searchStatementString += $"Operator: {TopLevelOperator}";
             }
             return searchStatementString;
         }

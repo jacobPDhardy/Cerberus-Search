@@ -26,7 +26,7 @@
         }
 
         [TestMethod]
-        public async Task RootTest() //Input = ("garbage" & "information")
+        public void RootTest() //Input = ("garbage" & "information")
         {
             SearchStatement statement = new SearchStatement("(\"garbage\" & \"information\")");
             if (!statement.Root)
