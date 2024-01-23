@@ -14,11 +14,12 @@ namespace Cerberus_Search_Complete
             }
         }
 
-        public static async Task Test(string search = "(\"garbage\" & !\"Information\") ^ !(\"2023-11-16\" & \"drive stages synced\")")
+        public static async Task<IEnumerable<Log>> RunDemo(string search = "(\"garbage\" & !\"Information\") ^ !(\"2023-11-16\" & \"drive stages synced\")")
         {
             SearchStatement searchStatement = new SearchStatement(search);
             List<Log> results = await searchStatement.Solve();
             await OutputDataset(results);
+            return results;
         }
 
         public static async Task<TimeSpan> Benchmark(string benchmarkSearch = "(\"mcr\" ^ \"garbage\" ^ \"information\" ^ \"identity\" ^ \"2024\")")
