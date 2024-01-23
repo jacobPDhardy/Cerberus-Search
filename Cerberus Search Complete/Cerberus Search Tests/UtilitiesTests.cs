@@ -1,5 +1,3 @@
-using NuGet.Frameworks;
-
 namespace Cerberus_Search_Tests
 {
     [TestClass]
@@ -8,28 +6,14 @@ namespace Cerberus_Search_Tests
         [TestMethod]
         public async Task TestDemo()
         {
-            try
-            {
-                await CSearchUtilities.RunDemo();           
-            }
-            catch
-            { 
-                Assert.Fail();
-            }
+            await CSearchUtilities.RunDemo();           
         }
 
         [TestMethod]
         public async Task TestBenchmark()
         {
-            try
-            {
-                TimeSpan average = await CSearchUtilities.Benchmark();
-                if(average > TimeSpan.FromSeconds(120))
-                {
-                    Assert.Fail();
-                }
-            }
-            catch
+            TimeSpan average = await CSearchUtilities.Benchmark();
+            if(average > TimeSpan.FromSeconds(120))
             {
                 Assert.Fail();
             }
