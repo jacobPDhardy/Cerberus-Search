@@ -33,7 +33,7 @@ namespace Cerberus_Search_Redesigned
             timer.Stop();
 
             TimeSpan timespan = timer.Elapsed;
-            Console.WriteLine($"{results.Count} results found in {timespan.ToString(@"m\:ss\.fff")}"); //Expected results = 53433
+            Console.WriteLine($"{results.Count} results found in {timespan.ToString(@"m\:ss\.fff")}"); //Expected results = 53433 or with new db results = 54059
             return timespan;
         }
 
@@ -42,13 +42,13 @@ namespace Cerberus_Search_Redesigned
             List<TimeSpan> times = new List<TimeSpan>();
             for (int count = 0;count < iterations;count++)
             {
-                Console.WriteLine($"Running benchmark {count} out of {iterations}");
+                Console.WriteLine($"Running benchmark {count} out of {iterations}\n");
                 times.Add(await Benchmark(benchmarkSearch));
                 Console.WriteLine();
             }
             var total = times.Sum(time => time.TotalMicroseconds);
             var average = total / iterations;
-            Console.WriteLine($"{iterations} benchmarks ran in {total.ToString(@"m\:ss\.fff")} with an average benchmark time of {average.ToString(@"m\:ss\.fff")}");
+            Console.WriteLine($"{iterations} benchmarks ran in {total} with an average benchmark time of {average}");
             return average;
         }
     }
