@@ -8,11 +8,6 @@ namespace Cerberus_Search_Redesigned
 {
     public static class HighLevelParser
     {
-        public static bool ParseNot(string search)
-        {
-            return search.Length >= 2 && search.StartsWith("!["); //make null safe
-        }//NEED TO REMOVE FROM STRING IF YES
-
         public static List<IntermediateSearchStatement> ParseStatement(string search)
         {
             if (IsSingleLayer(search))
@@ -51,17 +46,17 @@ namespace Cerberus_Search_Redesigned
             string unwrappedSearch = Unwrap(search);
             foreach (var character in unwrappedSearch)
             {
-                if (character == '[')
-                {
-                    not = true;
-                }
-                else if (character == ']')
-                {
-                    not = false;
-                }
                 if (!escapeSequence)
                 {
-                    if (character != backslash)
+                    if (character == '[')
+                    {
+                        not = true;
+                    }
+                    else if (character == ']')
+                    {
+                        not = false;
+                    }
+                    else if (character != backslash)
                     {
                         searchFragment += character;
                         if (character == '(')

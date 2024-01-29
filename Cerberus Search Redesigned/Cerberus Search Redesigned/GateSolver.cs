@@ -23,7 +23,7 @@ namespace Cerberus_Search_Redesigned
             {
                 result = XOR(datasets);
             }
-            else if (@operator == Gates.NULL)
+            else if (string.IsNullOrEmpty(@operator))
             {
                 return datasets.First();
             }

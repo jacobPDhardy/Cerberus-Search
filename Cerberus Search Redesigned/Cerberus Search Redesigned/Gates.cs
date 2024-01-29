@@ -14,8 +14,6 @@ namespace Cerberus_Search_Redesigned
         public static string NOT { get; } = "!";
         public static string[] operators { get; } = { AND, OR, XOR, NOT };
 
-        public static string NULL { get; } = "NULL";
-
         public static bool IsGate(string @operator)
         {
             if (operators.Contains(@operator))
